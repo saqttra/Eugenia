@@ -1,0 +1,27 @@
+# Copyright (C) 2025, Saqttra. All rights reserved.
+#
+# This file is part of Saqttra Eugenia
+#
+# This project's files are licensed under the MIT license
+# found in the LICENSE file in the root directory.
+#
+# <https://github.com/saqttra/Eugenia>.
+
+CC = gcc
+CFLAGS = -std=c89 -pedantic -Wall -Wextra -Werror
+HEADERS = src/errors.h
+SRC = src/main.c src/errors.c
+EXEC = eugenia
+
+all: $(EXEC)
+
+all: $(EXEC)
+
+$(EXEC): $(SRC) $(HEADERS)
+	$(CC) $(CFLAGS) -o $(EXEC) $(SRC)
+
+run: $(EXEC)
+	./$(EXEC)
+
+clean:
+	rm -f $(EXEC)
