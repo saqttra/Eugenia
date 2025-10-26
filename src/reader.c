@@ -24,7 +24,8 @@ Reader* init_reader(const char* filename, const char* cmd)
     exit(5);
   }
 
-  reader->readOffset = 0;
+  reader->bytesRead = 0;
+  reader->offset = 0;
   return reader;
 }
 
@@ -41,3 +42,10 @@ void free_reader(Reader** readerPtr)
   free(*readerPtr);
   *readerPtr = NULL;
 }
+
+/*
+void scan(Reader* reader)
+{
+
+}
+*/

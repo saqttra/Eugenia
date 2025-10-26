@@ -29,18 +29,22 @@ void perr2(const char* badCmd)
   );
 }
 
-void perr3(void)
-{
-  fprintf(stderr, "--stats: fatal error: no input file\n");
-}
-
-void perr4(int reqFiles)
+void perr3(const char* cmd)
 {
   fprintf(
     stderr,
-    "--stats: too many files for '--stats' command\n"
+    "%s: fatal error: no input file\n",
+    cmd
+  );
+}
+
+void perr4(const char* cmd, int reqFiles)
+{
+  fprintf(
+    stderr,
+    "%s: too many files for '%s' command\n"
     "expected 1 file, but received %d files\n",
-    reqFiles
+    cmd, cmd, reqFiles
   );
 }
 

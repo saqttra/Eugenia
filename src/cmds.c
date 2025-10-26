@@ -61,7 +61,12 @@ void stats_cmd(const char* filename)
     exit(6);
   }
 
-  printf("readOffset: %lu\n", reader->readOffset);
+  /* printf("readOffset: %lu\n", reader->readOffset); */
 
   free_reader(&reader);
+}
+
+void scan_cmd(const char* filename)
+{
+  printf("Filename: %s\n", filename);
 }
