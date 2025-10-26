@@ -28,3 +28,36 @@ void perr2(const char* badCmd)
     badCmd
   );
 }
+
+void perr3(void)
+{
+  fprintf(stderr, "--stats: fatal error: no input file\n");
+}
+
+void perr4(int reqFiles)
+{
+  fprintf(
+    stderr,
+    "--stats: too many files for '--stats' command\n"
+    "expected 1 file, but received %d files\n",
+    reqFiles
+  );
+}
+
+void perr5(const char* cmd, const char* filename)
+{
+  fprintf(
+    stderr,
+    "%s: fatal error: no such file (%s)\n",
+     cmd, filename
+  );
+}
+
+void perr6(const char* cmd)
+{
+  fprintf(
+    stderr,
+    "%s: fatal error: could not init reader\n",
+    cmd
+  );
+}

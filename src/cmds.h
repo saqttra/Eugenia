@@ -12,5 +12,6 @@ found in the LICENSE file in the root directory.
 
 void version_cmd(void);
 void help_cmd(void);
+void stats_cmd(const char* filename);
 
 #endif

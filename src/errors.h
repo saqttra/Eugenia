@@ -12,5 +12,9 @@ found in the LICENSE file in the root directory.
 
 void perr1(void);
 void perr2(const char* badCmd);
+void perr3(void);
+void perr4(int reqFiles);
+void perr5(const char* cmd, const char* filename);
+void perr6(const char* cmd);
 
 #endif /* errors.h */

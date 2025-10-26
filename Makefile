@@ -9,8 +9,8 @@
 
 CC = gcc
 CFLAGS = -std=c89 -pedantic -Wall -Wextra -Werror
-HEADERS = src/errors.h src/cmds.h
-SRC = src/main.c src/errors.c src/cmds.c
+HEADERS = src/errors.h src/cmds.h src/reader.h
+SRC = src/main.c src/errors.c src/cmds.c src/reader.c
 EXEC = eugenia
 
 all: $(EXEC)
@@ -25,3 +25,5 @@ run: $(EXEC)
 
 clean:
 	rm -f $(EXEC)
+
+# valgrind --leak-check=full --show-leak-kinds=all ./executable
