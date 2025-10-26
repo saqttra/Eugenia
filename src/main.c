@@ -13,11 +13,9 @@ found in the LICENSE file in the root directory.
 
 int str_in_strlist(const char* str, const char* list[], int len)
 {
-  while(len != 0){
+  while(len-- > 0){
     if(!strcmp(str, list[len]))
       return 1;
-
-    len--;
   }
 
   return 0;
@@ -32,7 +30,7 @@ int main(int argc, const char* argv[])
     return 1;
   }
 
-  if(str_in_strlist(argv[1], cmds, 2)){
+  if(str_in_strlist(argv[1], cmds, sizeof(cmds) / sizeof(cmds[0]))){
     printf("valid cmd\n");
   }
   else {
