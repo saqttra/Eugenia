@@ -9,8 +9,8 @@
 
 CC = gcc
 CFLAGS = -std=c89 -pedantic -Wall -Wextra -Werror
-HEADERS = src/errors.h
-SRC = src/main.c src/errors.c
+HEADERS = src/errors.h src/cmds.h
+SRC = src/main.c src/errors.c src/cmds.c
 EXEC = eugenia
 
 all: $(EXEC)

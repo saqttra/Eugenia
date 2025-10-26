@@ -7,10 +7,10 @@ found in the LICENSE file in the root directory.
 
 <https://github.com/saqttra/Eugenia>. */
 
-#ifndef EUGENIA_ERRORS_H_
-#define EUGENIA_ERRORS_H_
+#ifndef EUGENIA_CMDS_H_
+#define EUGENIA_CMDS_H_
 
-void perr1(void);
-void perr2(const char* badCmd);
+void version_cmd(void);
+void help_cmd(void);
 
-#endif /* errors.h */
+#endif

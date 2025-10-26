@@ -18,3 +18,13 @@ void perr1(void)
     "for further help: eugenia --help\n"
   );
 }
+
+void perr2(const char* badCmd)
+{
+  fprintf(
+    stderr,
+    "invalid command: %s\n"
+    "for further help: eugenia --help\n",
+    badCmd
+  );
+}
