@@ -66,7 +66,22 @@ void stats_cmd(const char* filename)
   free_reader(&reader);
 }
 
+/* Example:
+   $ eugenia poema.txt --scan -hex
+   Offset  Line  Col  Bytes  UTF-8        Unicode  Char
+   000000  1     1    1      0x48         U+0048   H
+   000001  1     2    1      0x6F         U+006F   o
+   000002  1     3    2      0xC3 0xA9    U+00E9   é
+   000004  1     4    1      0x21         U+0021   ! */
 void scan_cmd(const char* filename)
 {
-  printf("Filename: %s\n", filename);
+  Reader* reader = init_reader(filename, "--scan");
+  if(!reader){
+    perr6("--scan");
+    exit(6);
+  }
+
+  scan(reader);
+
+  free_reader(&reader);
 }
