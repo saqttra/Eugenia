@@ -14,6 +14,7 @@ found in the LICENSE file in the root directory.
 
 typedef struct Reader {
   FILE* file;
+  char* readBuf;
   size_t bytesRead;
   size_t offset;
 } Reader;
@@ -21,6 +22,6 @@ typedef struct Reader {
 Reader* init_reader(const char* filename, const char* cmd);
 void free_reader(Reader** readerPtr);
 void print_stats(Reader* reader);
-/* void scan(Reader* reader); */
+void scan(Reader* reader);
 
 #endif /* reader.h */
