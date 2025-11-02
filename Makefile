@@ -9,16 +9,15 @@
 
 CC = gcc
 CFLAGS = -std=c89 -pedantic -Wall -Wextra -Werror
+LIBS = -lm
 HEADERS = src/errors.h src/cmds.h src/reader.h src/utils.h
 SRC = src/main.c src/errors.c src/cmds.c src/reader.c src/utils.c
 EXEC = eugenia
 
 all: $(EXEC)
 
-all: $(EXEC)
-
 $(EXEC): $(SRC) $(HEADERS)
-	$(CC) $(CFLAGS) -o $(EXEC) $(SRC)
+	$(CC) $(CFLAGS) -o $(EXEC) $(SRC) $(LIBS)
 
 run: $(EXEC)
 	./$(EXEC)
