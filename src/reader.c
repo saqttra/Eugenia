@@ -51,12 +51,12 @@ void free_reader(Reader** readerPtr)
   *readerPtr = NULL;
 }
 
-static void print_header(const unsigned long digits);
+/* static void print_header(const unsigned long digits); */
 static size_t refill(Reader* reader);
 
 void scan(Reader* reader)
 {
-  const int digits = count_digits(ULONG_MAX);
+  /* const int digits = count_digits(ULONG_MAX); */
   Byte runeBuf[UTF8_MAX_WIDTH] = {0};
   int runeWidth = 0, i;
   Rune codepoint;
@@ -92,7 +92,7 @@ void scan(Reader* reader)
   }
 }
 
-static void print_header(const unsigned long digits)
+/* static void print_header(const unsigned long digits)
 {
   int offsetWidth = digits > strlen("Offset") ? digits : strlen("Offset");
   int lineWidth   = digits > strlen("Line")   ? digits : strlen("Line");
@@ -104,7 +104,7 @@ static void print_header(const unsigned long digits)
     -lineWidth, "Line", 
     -colWidth, "Col"
   );
-}
+} */
 
 static size_t refill(Reader* reader)
 {
