@@ -11,10 +11,11 @@ found in the LICENSE file in the root directory.
 #define EUGENIA_READER_H_
 
 #include <stdio.h>
+#include "typedefs.h"
 
 typedef struct Reader {
   FILE* file;
-  char* readBuf;
+  Byte* readBuf;
   size_t bytesRead;
   size_t offset;
 } Reader;

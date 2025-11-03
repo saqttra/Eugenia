@@ -7,12 +7,11 @@ found in the LICENSE file in the root directory.
 
 <https://github.com/saqttra/Eugenia>. */
 
-#ifndef EUGENIA_CMDS_H_
-#define EUGENIA_CMDS_H_
+#ifndef EUGENIA_TYPEDEFS_H_
+#define EUGENIA_TYPEDEFS_H_
 
-void version_cmd(void);
-void help_cmd(void);
-void stats_cmd(const char* filename);
-void scan_cmd(const char* filename);
+typedef unsigned char Byte;
+/* TODO: 'not unsigned long' to handle exceptions? */
+typedef long Rune;
 
-#endif /* cmds.h */
+#endif
