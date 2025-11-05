@@ -22,7 +22,7 @@ found in the LICENSE file in the root directory.
   <p>
     <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
     <a href="https://github.com/saqttra/Eugenia/releases">
-      <img src="https://img.shields.io/github/release/saqttra/Eugenia.svg" alt="Latest Release" />
+      <img src="https://img.shields.io/github/v/release/saqttra/Eugenia.svg" alt="Latest Release" />
     </a>
   </p>
 </div>
