@@ -10,6 +10,8 @@ found in the LICENSE file in the root directory.
 #ifndef EUGENIA_UTILS_H_
 #define EUGENIA_UTILS_H_
 
-int count_digits(unsigned long maxVal);
+#include <stddef.h>
+
+int count_digits(size_t maxVal);
 
 #endif /* utils.h */

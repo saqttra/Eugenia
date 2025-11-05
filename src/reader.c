@@ -51,33 +51,32 @@ void free_reader(Reader** readerPtr)
   *readerPtr = NULL;
 }
 
-static void print_header(const unsigned long digits);
+static void print_header(const int digits);
 static size_t refill(Reader* reader);
+static const char* visible_repr(Rune codepoint, const Byte* runeBuf);
 
 void scan(Reader* reader)
 {
   const int digits = count_digits(ULONG_MAX);
   Byte runeBuf[UTF8_MAX_WIDTH] = {0};
-  int runeWidth = 0, i;
-  int hexbuf;
+  int runeWidth = 0, i, hexbuf;
   Rune codepoint;
+  size_t offset = 0, line = 1, col = 0;
 
-  /*size_t offset, line, col;
-  offset = line = col = 0;*/
-
-  /* Line Col Bytes UTF-8 Unicode Rune */
   print_header(digits);
 
   while(1){
     if(reader->offset >= reader->bytesRead){
-      if(!refill(reader))
+      if(!refill(reader)){
+        printf("EOF\n");
         return;
+      }
     }
 
     runeWidth = rune_width(reader->readBuf[reader->offset]);
     if(runeWidth > (int)(reader->bytesRead - reader->offset)){
       if(!refill(reader)){
-        printf("TODO: PENDING to handle\n");
+        printf("EOF\n");
         return;
       }
       continue;
@@ -87,7 +86,17 @@ void scan(Reader* reader)
       runeBuf[i] = reader->readBuf[reader->offset + i];
     codepoint = decode_seq(runeBuf);
 
-    printf("%-5d ", runeWidth);
+    printf("%0*lu %*lu %*lu %-5d ",
+      digits, offset,
+      -digits, line,
+      -digits, ++col, 
+      runeWidth
+    );
+
+    if (codepoint == '\n'){
+      line++;
+      col = 0;
+    }
 
     hexbuf = 0;
     for(i=0; i < runeWidth; i++)
@@ -96,39 +105,25 @@ void scan(Reader* reader)
     for (; hexbuf < 20; hexbuf++)
       putchar(' ');
 
-    printf("U+%04lX : %s\n", codepoint, runeBuf);
-
-    /*printf(
-      "%0*lu %*lu %*lu %-5d ",
-      digits, offset,
-      -digits, line,
-      -digits, col,
-      runeWidth
-    );*/
+    printf("U+%04lX : %s\n", codepoint, visible_repr(codepoint, runeBuf));
 
     reader->offset += runeWidth;
+    offset += runeWidth;
 
     /* clean buffer */
     runeBuf[0] = runeBuf[1] = runeBuf[2] = runeBuf[3] = 0;
   }
 }
 
-static void print_header(const unsigned long digits)
+/* stDigits: size_t's max digits */
+static void print_header(const int stDigits)
 {
   /* Offset Line Col Width UTF-8 Unicode/Rune */
-
-  /* temp to silence compiler warnings */
-  digits > strlen("Offset") ? digits : strlen("Offset");
-  /* int thWidth  = digits > strlen("Offset") ? digits : strlen("Offset");
-     int th2Width = digits > strlen("Line")   ? digits : strlen("Line");
-     int th3Width = digits > strlen("Col")    ? digits : strlen("Col");
-  
-     -thWidth, "Offset",
-     -th2Width, "Line",
-     -th3Width, "Col", */
-
   printf(
-    "%*s %*s %*s\n", 
+    "%*s %*s %*s %*s %*s %*s\n",
+    -stDigits, "Offset",
+    -stDigits, "Line",
+    -stDigits, "Col",
     -(int)strlen("Width"), "Width",
     -19, "UTF-8",
     -8, "Unicode/Rune"
@@ -160,6 +155,31 @@ static size_t refill(Reader* reader)
   reader->offset = 0;
 
   return reader->bytesRead;
+}
+
+static const char* visible_repr(Rune codepoint, const Byte* runeBuf)
+{
+  switch(codepoint) {
+    case '\0':  return "\\0";
+    case '\t':  return "\\t";
+    case '\n':  return "\\n";
+    case '\r':  return "\\r";
+    case '\v':  return "\\v";
+    case '\f':  return "\\f";
+    case '\a':  return "\\a";
+    case '\b':  return "\\b";
+    case 0x1B:  return "\\e";  /* ESC */
+    default:
+      /* control chars (0x00-0x1F y 0x7F-0x9F) */
+      if ((codepoint >= 0 && codepoint <= 0x1F) || 
+          (codepoint >= 0x7F && codepoint <= 0x9F)) {
+        return "[CTRL]";
+      }
+
+      /* visible: runeBuf
+         LOC 102: already ensures null termination */
+      return (char*)runeBuf;
+  }
 }
 
 #undef UTF8_MAX_WIDTH

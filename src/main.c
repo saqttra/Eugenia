@@ -12,7 +12,7 @@ found in the LICENSE file in the root directory.
 #include "errors.h"
 #include "cmds.h"
 
-#define TOTAL_NUM_CMDS 4
+#define TOTAL_NUM_CMDS 3
 
 int str_in_strlist(const char* str, const char* list[], int len)
 {
@@ -29,7 +29,6 @@ int main(int argc, const char* argv[])
   const char* cmds[TOTAL_NUM_CMDS] = {
     "--version",
     "--help",
-    "--stats",
     "--scan"
   };
 
@@ -53,22 +52,6 @@ int main(int argc, const char* argv[])
   if(strcmp(argv[1], "--help") == 0){
     help_cmd();
     return 0;
-  }
-
-  if((strcmp(argv[1], "--stats") == 0)){
-    if(argc == 2){
-      perr3(argv[1]);
-      return 1;
-    }
-
-    if(argc > 3){
-      /* -2 to remove 'eugenia' and '--stats' from argc */
-      reqFiles = argc;
-      perr4(argv[1], reqFiles - 2);
-      return 1;
-    }
-
-    stats_cmd(argv[2]);
   }
 
   if((strcmp(argv[1], "--scan") == 0)){

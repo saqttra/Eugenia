@@ -16,7 +16,7 @@ found in the LICENSE file in the root directory.
 void version_cmd(void)
 {
   printf(
-    "Saqttra Eugenia 0.x.x--alpha\n"
+    "Saqttra Eugenia 1.0.0\n"
     "Copyright (C) 2025 Saqttra\n"
   );
 }
@@ -25,8 +25,7 @@ void version_cmd(void)
    Commands:
      --help          Display this information.
      --version       Display Eugenia's version.
-     --stats         Display file's global stats: total bytes, runes,
-                     lines, etc.*/
+     --scan <file>   Scan and display the UTF-8 structure of <file> */
 
 void help_cmd(void)
 {
@@ -38,41 +37,32 @@ void help_cmd(void)
     "  %-15s %s\n",
     "--help", "Display this information",
     "--version", "Display Eugenia's version",
-    "--stats <file>", 
-    "Display file's global stats: total bytes, runes, lines, etc."
+    "--scan <file>", 
+    "Scan and display the UTF-8 structure of <file>"
   );
 }
 
-/* Example:
-   $ eugenia --stats poem.txt
+/* TBI: stats command
+   Example:
+    $ eugenia --stats poem.txt
 
-   Total bytes: 104
-   Total runas: 96
-   UTF-8 valid: yes
-   1-byte: 88 (91.7%)
-   2-byte: 8  (8.3%)
-   Lines: 3
-   Most common rune: U+0020 (space) */
-void stats_cmd(const char* filename)
+    Total bytes: 104
+    Total runes: 96
+    UTF-8 valid: yes
+    1-byte: 88 (91.7%)
+    2-byte: 8  (8.3%)
+    Lines: 3
+    Most common rune: U+0020 (space) */
+/* void stats_cmd(const char* filename)
 {
   Reader* reader = init_reader(filename, "--stats");
   if(!reader){
     perr6("--stats");
     exit(6);
   }
-
-  /* printf("readOffset: %lu\n", reader->readOffset); */
-
   free_reader(&reader);
-}
+} */
 
-/* Example:
-   $ eugenia poema.txt --scan -hex
-   Offset  Line  Col  Bytes  UTF-8        Unicode  Char
-   000000  1     1    1      0x48         U+0048   H
-   000001  1     2    1      0x6F         U+006F   o
-   000002  1     3    2      0xC3 0xA9    U+00E9   é
-   000004  1     4    1      0x21         U+0021   ! */
 void scan_cmd(const char* filename)
 {
   Reader* reader = init_reader(filename, "--scan");

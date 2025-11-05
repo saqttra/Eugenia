@@ -10,7 +10,7 @@ found in the LICENSE file in the root directory.
 #include <math.h>
 #include "utils.h"
 
-int count_digits(unsigned long maxVal)
+int count_digits(size_t maxVal)
 {
   int digits = 0;
   if (maxVal == 0) return 1;
